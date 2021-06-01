@@ -42,9 +42,9 @@ budgetDay =(Math.floor(budgetMonth/30));
 
 
 console.log(typeof money);
-console.log(arr.split(','));
 console.log(typeof arr);
 console.log(typeof deposit);
+console.log( arr.split(','));
 console.log('Бюджет на месяц ' + budgetMonth);
 console.log('Цель будет достигнута за ' + period + ' месяцев');
 console.log('Бюджет на день:' + budgetDay);
