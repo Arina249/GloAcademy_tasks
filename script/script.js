@@ -1,30 +1,31 @@
 'use strict';
 
-let money;
-let income = 'Фриланс';
-let addExpenses = 'Коммуналка,Такси,Интернет,Продукты,Одежда';
-let arr = addExpenses.split(',');
-let deposit = true;
-const mission = 20000;
-let period;
-let budgetDay = money/30;
+let money,
+    income = 'Фриланс',
+    addExpenses = 'Коммуналка,Такси,Интернет,Продукты,Одежда',
+    arr = addExpenses.split(','),
+    deposit = true,
+    mission = 20000,
+    period,
+    budgetDay = money/30;
 
-//console.log('Тип данных money: ' + typeof money);
-//console.log('Тип данных income: ' + typeof income);
-//console.log('Тип данных deposit: ' + typeof deposit);
-//console.log('Длина строки addExpenses ' + addExpenses.length);
-//console.log('Период равен ' +period+' месяцев.' + ' Цель заработать ' + mission + ' долларов');
-//console.log('Строка приведенная к нижнему регистру :' + addExpenses.toLowerCase());
+    money = +prompt('Ваш месячный доход?',5000);
+
+let showTypeOf = function(data){
+    console.log(data, typeof(data));
+};
+
+showTypeOf(money);
+showTypeOf(income);
+showTypeOf(deposit);
 
 for (let i = 0; i < arr.length; i++){
     arr[i] = arr[i].toLowerCase();
 }
-//console.log('Строка приведенная к нижнему регистру и разбитая на массив: ' + arr);
-//console.log('Дневной бюджет равен: ' + budgetDay);
+
 
 /////////////////////////////////
 
-money = +prompt('Ваш месячный доход?');
 
 arr = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
 
@@ -35,29 +36,51 @@ let expenses1 = prompt('Введите обязательную статью р�
     expenses2 = prompt('Введите обязательную статью расходов?'),
     amount2 = +prompt('Во сколько это обойдется?');
 
-let budgetMonth = money - (amount1 + amount2);
 
-period = (Math.ceil(mission/budgetMonth));
-budgetDay =(Math.floor(budgetMonth/30));
-
-
-console.log(typeof money);
-console.log(typeof arr);
-console.log(typeof deposit);
-console.log( arr.split(','));
-console.log('Бюджет на месяц ' + budgetMonth);
-console.log('Цель будет достигнута за ' + period + ' месяцев');
-console.log('Бюджет на день:' + budgetDay);
-
-
-if(budgetDay >= 1200){
-    console.log('У вас высокий уровень дохода');
-}else if(budgetDay>=600){
-    console.log('У вас средний уровень дохода');
-}else if(budgetDay >= 0){
-    console.log('У вас низкий уровень дохода');
-}else if (budgetDay < 0 ){
-    console.log('Что то пошло не так');
+//Объявить функцию getExpensesMonth. Функция возвращает сумму всех обязательных расходов за месяц
+let sum = 0;
+function getExpensesMonth(){
+     sum = amount1 + amount2;
 }
+
+getExpensesMonth();
+console.log('Сумма всех обязательныз расходов за месяц: ' + sum);
+//Объявить функцию getAccumulatedMonth. Функция возвращает Накопления за месяц (Доходы минус расходы)
+let accumulation;
+function getAccumulatedMonth (){
+    accumulation = money - sum;
+}
+
+getAccumulatedMonth();
+console.log('Накопления за месяц: ' + accumulation);
+//Объявить переменную accumulatedMonth и присвоить ей результат вызова функции getAccumulatedMonth 
+let accumulatedMonth = getAccumulatedMonth();
+//Объявить функцию getTargetMonth. 
+let getTargetMonth = function(){
+    period = (Math.ceil(mission / accumulatedMonth));
+};
+getTargetMonth();
+console.log('Период за который будет достигнута цель ' + period);
+
+budgetDay =(Math.floor(accumulatedMonth/30));
+console.log('Дневной бюджет составляет: ' + budgetDay);
+
+let getStatusIncome = function(){
+    if(budgetDay >= 1200){
+        return('У вас высокий уровень дохода');
+    }else if(budgetDay>=600){
+        return('У вас средний уровень дохода');
+    }else if(budgetDay >= 0){
+        return('У вас низкий уровень дохода');
+    }else if (budgetDay < 0 ){
+        return('Что то пошло не так');
+    }
+};
+
+console.log(getStatusIncome());
+
+
+
+
 
 
